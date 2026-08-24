@@ -1,17 +1,8 @@
 <?php
 
-require_once("config/conexao.php");
-
-$sql = "SELECT * FROM especies";
-
-$resultado = mysqli_query($conn, $sql);
-
-if (!$resultado) {
-    die("Erro ao consultar espécies: " . mysqli_error($conn));
-}
+require_once("includes/auth.php");
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -31,70 +22,27 @@ if (!$resultado) {
 
 </head>
 
-<body class="bg-light">
+<body>
 
 <div class="container py-5">
 
-    <h1 class="mb-4">
+    <h1>
         Sistema de Pets
     </h1>
 
-    <div class="card">
+    <p class="lead">
+        Olá, <?= htmlspecialchars($_SESSION["usuario_nome"]) ?>!
+    </p>
 
-        <div class="card-header">
-            Espécies cadastradas
-        </div>
-
-        <div class="card-body">
-
-            <?php if (mysqli_num_rows($resultado) > 0) { ?>
-
-                <table class="table table-striped">
-
-                    <thead>
-
-                        <tr>
-                            <th>ID</th>
-                            <th>Espécie</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <?php while ($row = mysqli_fetch_assoc($resultado)) { ?>
-
-                            <tr>
-
-                                <td>
-                                    <?= $row["id"] ?>
-                                </td>
-
-                                <td>
-                                    <?= htmlspecialchars($row["especie"]) ?>
-                                </td>
-
-                            </tr>
-
-                        <?php } ?>
-
-                    </tbody>
-
-                </table>
-
-            <?php } else { ?>
-
-                <p>
-                    Nenhuma espécie cadastrada.
-                </p>
-
-            <?php } ?>
-
-        </div>
-
-    </div>
+    <a
+        href="logout.php"
+        class="btn btn-danger"
+    >
+        Sair
+    </a>
 
 </div>
 
 </body>
+
 </html>
