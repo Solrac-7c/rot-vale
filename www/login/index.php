@@ -84,6 +84,17 @@
                         >
                             Entrar
                         </button>
+                        <div class="text-center mt-3">
+
+                            <p class="mb-0">
+                                Ainda não possui uma conta?
+                            </p>
+
+                            <a href="../cadastro/index.php">
+                                 Cadastre-se
+                            </a>    
+
+                        </div>
 
                     </form>
 
