@@ -1,0 +1,57 @@
+body {
+    background-color: #f8f9fa;
+}
+
+main {
+    min-height: 75vh;
+}
+
+.page-header {
+    margin-top: 10px;
+}
+
+.page-title {
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.page-description {
+    margin-bottom: 0;
+    color: #6c757d;
+}
+
+.form-card {
+    border: none;
+    border-radius: 12px;
+}
+
+.form-card .form-label {
+    font-weight: 500;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.gender-options {
+    padding-top: 8px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+@media (max-width: 576px) {
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+
+}
