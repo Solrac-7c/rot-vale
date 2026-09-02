@@ -65,10 +65,6 @@ require_once("../includes/header.php");
                 >
 
                     <div class="row">
-
-
-                        <!-- Nome -->
-
                         <div class="col-md-8 mb-4">
 
                             <label
@@ -89,10 +85,6 @@ require_once("../includes/header.php");
                             >
 
                         </div>
-
-
-                        <!-- Nascimento -->
-
                         <div class="col-md-4 mb-4">
 
                             <label
@@ -112,10 +104,6 @@ require_once("../includes/header.php");
                             >
 
                         </div>
-
-
-                        <!-- Espécie -->
-
                         <div class="col-md-7 mb-4">
 
                             <label
@@ -172,10 +160,6 @@ require_once("../includes/header.php");
                             </select>
 
                         </div>
-
-
-                        <!-- Gênero -->
-
                         <div class="col-md-5 mb-4">
 
                             <label class="form-label d-block">
@@ -226,10 +210,6 @@ require_once("../includes/header.php");
                             </div>
 
                         </div>
-
-
-                        <!-- Prontuário -->
-
                         <div class="col-12 mb-4">
 
                             <label

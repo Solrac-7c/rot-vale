@@ -3,10 +3,7 @@
 require_once("../includes/auth.php");
 require_once("../config/conexao.php");
 
-
-// ==================================================
 // CADASTRO
-// ==================================================
 
 if (isset($_POST["enviar"])) {
 
@@ -75,20 +72,15 @@ if (isset($_POST["enviar"])) {
 
     if (mysqli_stmt_execute($stmt)) {
 
-        session_start();
-
         $_SESSION["msg"] = "Pet cadastrado com sucesso.";
         $_SESSION["class"] = "alert alert-success";
 
     } else {
 
-        session_start();
-
         $_SESSION["msg"] = "Houve um erro ao cadastrar o pet.";
         $_SESSION["class"] = "alert alert-danger";
 
     }
-
 
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
@@ -97,10 +89,7 @@ if (isset($_POST["enviar"])) {
     exit;
 }
 
-
-// ==================================================
 // ALTERAÇÃO
-// ==================================================
 
 if (isset($_POST["alterar"])) {
 
@@ -150,7 +139,6 @@ if (isset($_POST["alterar"])) {
         exit;
     }
 
-
     $sql = "UPDATE pets
             SET nome = ?,
                 nascimento = ?,
@@ -179,8 +167,6 @@ if (isset($_POST["alterar"])) {
 
     if (mysqli_stmt_execute($stmt)) {
 
-        session_start();
-
         if (mysqli_stmt_affected_rows($stmt) > 0) {
 
             $_SESSION["msg"] = "Pet alterado com sucesso.";
@@ -194,8 +180,6 @@ if (isset($_POST["alterar"])) {
         }
 
     } else {
-
-        session_start();
 
         $_SESSION["msg"] = "Houve um erro ao alterar o pet.";
         $_SESSION["class"] = "alert alert-danger";
