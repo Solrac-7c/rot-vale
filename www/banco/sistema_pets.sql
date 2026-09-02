@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 24/08/2026 às 12:07
+-- Tempo de geração: 02/09/2026 às 11:39
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.3.33
 
@@ -37,9 +37,6 @@ CREATE TABLE `especies` (
 --
 
 INSERT INTO `especies` (`id`, `especie`) VALUES
-(1, 'Cachorro'),
-(2, 'Gato'),
-(3, 'Coelho'),
 (4, 'Pássaro'),
 (5, 'Hamster');
 
@@ -58,6 +55,13 @@ CREATE TABLE `pets` (
   `genero` enum('Macho','Fêmea') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Despejando dados para a tabela `pets`
+--
+
+INSERT INTO `pets` (`id`, `nome`, `nascimento`, `especie_id`, `prontuario`, `genero`) VALUES
+(5, 'Rex', '2007-02-10', 4, 'Aham! O bicho é bom', 'Macho');
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +74,14 @@ CREATE TABLE `usuarios` (
   `usuario` varchar(50) NOT NULL,
   `senha` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nome`, `usuario`, `senha`) VALUES
+(1, 'Carlos', 'carlos', '$2y$10$fKEv3/wwTUvwVyxm5TzX3OyI5KTYTHcFj7AXyalUCZbh7.DSghWd2'),
+(2, 'Rex', 'rex', '$2y$10$CoygtTFYAb9rZQGJiD6mxO0A4IAFFJTqjY/lGCu2556NQJ/BZHmGO');
 
 --
 -- Índices para tabelas despejadas
@@ -103,19 +115,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `especies`
 --
 ALTER TABLE `especies`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para tabelas despejadas
