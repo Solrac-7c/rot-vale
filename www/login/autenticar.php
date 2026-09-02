@@ -47,7 +47,7 @@ $_SESSION["usuario_id"] = $usuarioBanco["id"];
 $_SESSION["usuario_nome"] = $usuarioBanco["nome"];
 $_SESSION["usuario_usuario"] = $usuarioBanco["usuario"];
 
-header("Location: ../especies/index.php");
+header("Location: ../index.php");
 exit;
 
 ?>
