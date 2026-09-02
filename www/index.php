@@ -2,47 +2,104 @@
 
 require_once("includes/auth.php");
 
+$tituloPagina = "Início";
+
+require_once("includes/header.php");
+
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
+<div class="home-header mb-5">
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Sistema de Pets</title>
-
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-
-</head>
-
-<body>
-
-<div class="container py-5">
-
-    <h1>
+    <h1 class="home-title">
         Sistema de Pets
     </h1>
 
-    <p class="lead">
-        Olá, <?= htmlspecialchars($_SESSION["usuario_nome"]) ?>!
+    <p class="home-subtitle">
+        Bem-vindo, <?= htmlspecialchars($_SESSION["usuario_nome"]) ?>!
     </p>
 
-    <a
-        href="logout.php"
-        class="btn btn-danger"
-    >
-        Sair
-    </a>
+    <p class="text-muted">
+        Selecione uma das opções abaixo para continuar.
+    </p>
 
 </div>
 
-</body>
 
-</html>
+<div class="row g-4">
+
+    <!-- Espécies -->
+
+    <div class="col-md-6">
+
+        <div class="card home-card h-100 shadow-sm">
+
+            <div class="card-body p-4">
+
+                <div class="home-icon">
+                    🐾
+                </div>
+
+                <h2 class="h4 mt-3">
+                    Espécies
+                </h2>
+
+                <p class="text-muted">
+                    Cadastre e gerencie as espécies
+                    disponíveis no sistema.
+                </p>
+
+                <a
+                    href="especies/mostrar.php"
+                    class="btn btn-primary"
+                >
+                    Acessar espécies
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Pets -->
+
+    <div class="col-md-6">
+
+        <div class="card home-card h-100 shadow-sm">
+
+            <div class="card-body p-4">
+
+                <div class="home-icon">
+                    🐶
+                </div>
+
+                <h2 class="h4 mt-3">
+                    Pets
+                </h2>
+
+                <p class="text-muted">
+                    Cadastre e gerencie os animais
+                    registrados no sistema.
+                </p>
+
+                <a
+                    href="pets/mostrar.php"
+                    class="btn btn-primary"
+                >
+                    Acessar pets
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<?php
+
+require_once("includes/footer.php");
+
+?>
