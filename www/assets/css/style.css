@@ -9,7 +9,171 @@ main {
 .page-header {
     margin-top: 10px;
 }
+/*CONFIGURAÇÕES GERAIS*/
 
+body {
+    background-color: #f5f7fa;
+    color: #212529;
+}
+
+main {
+    min-height: 76vh;
+}
+
+/*NAVBAR*/
+
+.navbar {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+/*CABEÇALHO DAS PÁGINAS*/
+
+.page-header {
+    margin-top: 10px;
+}
+
+.page-title {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.page-description {
+    margin-bottom: 0;
+    color: #6c757d;
+}
+
+/*CARDS*/
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.form-card,
+.home-card {
+    border-radius: 12px;
+}
+
+.card-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.card-footer {
+    background-color: #ffffff;
+    border-top: 1px solid #e9ecef;
+}
+
+/*FORMULÁRIOS*/
+
+.form-label {
+    font-weight: 500;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+/*TABELAS*/
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+.table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/*BOTÕES*/
+
+.btn {
+    border-radius: 8px;
+}
+
+.btn-sm {
+    border-radius: 6px;
+}
+
+/*MENSAGENS*/
+
+.alert {
+    border-radius: 8px;
+}
+
+/*HOME*/
+
+.home-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-card:hover {
+    transform: translateY(-3px);
+}
+
+.home-card-icon {
+    font-size: 2.5rem;
+}
+
+/*FOOTER*/
+
+footer {
+    background-color: #ffffff;
+}
+
+/*RESPONSIVIDADE*/
+
+@media (max-width: 576px) {
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+}
 .page-title {
     margin-bottom: 0.25rem;
     font-weight: 600;

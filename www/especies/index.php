@@ -1,6 +1,7 @@
 <?php
 
 require_once("../includes/auth.php");
+require_once("../config/conexao.php");
 
 $tituloPagina = "Cadastrar espécie";
 
