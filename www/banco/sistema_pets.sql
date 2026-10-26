@@ -53,6 +53,7 @@ CREATE TABLE `pets` (
   `especie_id` int NOT NULL,
   `prontuario` text NOT NULL,
   `genero` enum('Macho','Fêmea') NOT NULL
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

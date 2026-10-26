@@ -29,7 +29,7 @@ require_once("../includes/header.php");
 
             <div class="card-body p-4">
 
-                <form method="POST" action="processa.php">
+                <form method="POST" action="processa.php" enctype="multipart/form-data">
 
                     <div class="row">
 
@@ -198,7 +198,22 @@ require_once("../includes/header.php");
                                 required
                             ></textarea>
 
-                        </div>
+                            <label for="foto" class="form-label">
+                                Foto do pet
+                                </label>
+
+                                <input
+                                    type="file"
+                                    class="form-control"
+                                    id="foto"
+                                    name="foto"
+                                    accept="image/jpeg,image/png,image/webp"
+                                >   
+
+                                <div class="form-text">
+                                    Formatos aceitos: JPG, PNG ou WEBP. Tamanho máximo: 2 MB.
+                                </div>
+</div>
 
                     </div>
 

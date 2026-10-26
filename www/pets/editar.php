@@ -62,6 +62,7 @@ require_once("../includes/header.php");
                 <form
                     method="POST"
                     action="processa.php"
+                    enctype="multipart/form-data"
                 >
 
                     <div class="row">
@@ -227,9 +228,43 @@ require_once("../includes/header.php");
                                 required
                             ><?= htmlspecialchars($pet["prontuario"]) ?></textarea>
 
+                            <div class="col-12 mb-4">
+
+                                <label for="foto" class="form-label">
+                                Foto do pet
+                                </label>
+
+                                <?php if (!empty($pet["foto"])) { ?>
+
+                                    <div class="mb-2">
+
+                                        <img
+                                            src="<?= htmlspecialchars($pet["foto"], ENT_QUOTES, "UTF-8") ?>"
+                                            alt="Foto atual de <?= htmlspecialchars($pet["nome"], ENT_QUOTES, "UTF-8") ?>"
+                                            class="img-thumbnail"
+                                            style="max-width: 220px; max-height: 220px; object-fit: cover;"
+                                        >
+
+                                    </div>
+
+                                <?php } ?>
+
+                                <input
+                                    type="file"
+                                    class="form-control"
+                                    id="foto"
+                                    name="foto"
+                                    accept="image/jpeg,image/png,image/webp"
+                                >
+
+                                <div class="form-text">
+                                    Selecione outra imagem para substituir a atual.
+                                    Deixe o campo vazio para manter a foto existente.
+                                </div>
+
+                            </div>
+
                         </div>
-
-
                     </div>
 
 

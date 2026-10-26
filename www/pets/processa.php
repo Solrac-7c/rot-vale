@@ -3,6 +3,81 @@
 require_once("../includes/auth.php");
 require_once("../config/conexao.php");
 
+//LÓGICA UPLOAD DE FOTO/IMAGEM
+
+function receberFotoPet(): ?string
+{
+    if (!isset($_FILES["foto"]) || $_FILES["foto"]["error"] === UPLOAD_ERR_NO_FILE
+    ) {
+        return null;
+    }
+
+    $arquivo = $_FILES["foto"];
+
+    if ($arquivo["error"] !== UPLOAD_ERR_OK) {
+        throw new RuntimeException(
+            "O envio da imagem falhou. Verifique o arquivo."
+        );
+    }
+
+    $limite = 2 * 1024 * 1024;
+
+    if ($arquivo["size"] > $limite) {
+        throw new RuntimeException("A imagem deve ter no máximo 2 MB.");
+    }
+
+    $temporario = $arquivo["tmp_name"];
+
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $mime = $finfo->file($temporario);
+
+    $tiposPermitidos = [
+        "image/jpeg" => "jpg",
+        "image/png"  => "png",
+        "image/webp" => "webp"
+    ];
+
+    if (!isset($tiposPermitidos[$mime]) || @getimagesize($temporario) === false
+    ) {
+        throw new RuntimeException("Envie uma imagem JPG, PNG ou WEBP válida.");
+    }
+
+    $pasta = __DIR__ . "/../uploads/pets";
+
+    if (!is_dir($pasta) && !mkdir($pasta, 0755, true) && !is_dir($pasta)
+    ) {
+        throw new RuntimeException("Não foi possível preparar a pasta de fotos.");
+    }
+
+    $nomeArquivo =bin2hex(random_bytes(16)) . "." . $tiposPermitidos[$mime];
+
+    $destino = $pasta . "/" . $nomeArquivo;
+
+    if (!move_uploaded_file($temporario,$destino)
+    ){
+        throw new RuntimeException("Não foi possível salvar a imagem no servidor.");
+    }
+
+    return "/uploads/pets/" . $nomeArquivo;
+}
+
+
+function apagarFotoPet(?string $caminhoPublico): void
+{
+    if ($caminhoPublico === null || !str_starts_with($caminhoPublico, "/uploads/pets/")
+    ) {
+        return;
+    }
+
+    $nomeArquivo = basename($caminhoPublico);
+
+    $arquivo = __DIR__. "/../uploads/pets/" . $nomeArquivo;
+
+    if (is_file($arquivo)) {
+        unlink($arquivo);
+    }
+}
+
 // CADASTRO
 
 if (isset($_POST["enviar"])) {
@@ -48,10 +123,25 @@ if (isset($_POST["enviar"])) {
         exit;
     }
 
+    try {
+        $foto = receberFotoPet();
+    } 
+    catch (RuntimeException $e) {
+        echo htmlspecialchars(
+            $e->getMessage(),
+            ENT_QUOTES,
+            "UTF-8"
+    );
+
+    echo '<br><a href="index.php">Voltar ao cadastro</a>';
+
+    exit;
+}
+
 
     $sql = "INSERT INTO pets
-            (nome, nascimento, especie_id, prontuario, genero)
-            VALUES (?, ?, ?, ?, ?)";
+        (nome, nascimento, especie_id, prontuario, genero, foto)
+        VALUES (?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($conn, $sql);
 
@@ -66,7 +156,8 @@ if (isset($_POST["enviar"])) {
         $nascimento,
         $especie_id,
         $prontuario,
-        $genero
+        $genero,
+        $foto
     );
 
 
@@ -76,7 +167,11 @@ if (isset($_POST["enviar"])) {
         $_SESSION["class"] = "alert alert-success";
 
     } else {
-
+        
+        if ($foto !== null) {
+            apagarFotoPet($foto);
+        }
+        
         $_SESSION["msg"] = "Houve um erro ao cadastrar o pet.";
         $_SESSION["class"] = "alert alert-danger";
 
