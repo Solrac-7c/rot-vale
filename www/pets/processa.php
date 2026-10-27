@@ -1,7 +1,7 @@
 <?php
 
-require_once("../includes/auth.php");
-require_once("../config/conexao.php");
+require_once __DIR__ . "/../includes/auth.php";
+require_once __DIR__ . "/../config/conexao.php";
 
 //LÓGICA UPLOAD DE FOTO/IMAGEM
 
