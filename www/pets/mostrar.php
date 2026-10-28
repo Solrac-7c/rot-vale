@@ -1,7 +1,7 @@
 <?php
 
-require_once("../includes/auth.php");
-require_once("../config/conexao.php");
+require_once __DIR__ . "/../includes/auth.php";
+require_once __DIR__ . "/../config/conexao.php";
 
 $tituloPagina = "Pets cadastrados";
 
@@ -64,7 +64,8 @@ require_once("../includes/header.php");
                     pets.nascimento,
                     especies.especie,
                     pets.genero,
-                    pets.prontuario
+                    pets.prontuario,
+                    pets.foto
 
                 FROM pets
 
@@ -96,6 +97,7 @@ require_once("../includes/header.php");
                         <tr>
 
                             <th>ID</th>
+                            <th>Foto</th>
                             <th>Nome</th>
                             <th>Nascimento</th>
                             <th>Espécie</th>
@@ -115,6 +117,24 @@ require_once("../includes/header.php");
 
                             <td>
                                 <?= $row["id"] ?>
+                            </td>
+                            <td>
+
+                                <?php if (!empty($row["foto"])) { ?>
+
+                                    <img
+                                        src="<?= htmlspecialchars($row["foto"], ENT_QUOTES, "UTF-8") ?>"
+                                        alt="Foto de <?= htmlspecialchars($row["nome"], ENT_QUOTES, "UTF-8") ?>"
+                                        class="img-thumbnail"
+                                        style="width: 72px; height: 72px; object-fit: cover;"
+                                    >
+
+                                <?php } else { ?>
+
+                                    <span class="text-muted">Sem foto</span>
+
+                                <?php } ?>
+
                             </td>
 
                             <td>

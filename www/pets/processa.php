@@ -151,7 +151,7 @@ if (isset($_POST["enviar"])) {
 
     mysqli_stmt_bind_param(
         $stmt,
-        "ssiss",
+        "ssisss",
         $nome,
         $nascimento,
         $especie_id,
@@ -233,13 +233,56 @@ if (isset($_POST["alterar"])) {
 
         exit;
     }
+    
+    $sqlFotoAntiga = "SELECT foto FROM pets WHERE id = ?";
+
+    $stmtFotoAntiga = mysqli_prepare($conn, $sqlFotoAntiga);
+
+    if (!$stmtFotoAntiga) {
+        die("Erro ao consultar a foto do pet.");
+    }
+
+    mysqli_stmt_bind_param(
+        $stmtFotoAntiga,
+        "i",
+        $id
+    );
+
+    mysqli_stmt_execute($stmtFotoAntiga);
+
+    $resultadoFotoAntiga = mysqli_stmt_get_result($stmtFotoAntiga);
+
+    $registroFotoAntiga = mysqli_fetch_assoc($resultadoFotoAntiga);
+
+    mysqli_stmt_close($stmtFotoAntiga);
+
+    if (!$registroFotoAntiga) {
+        echo "Pet não encontrado.";
+        exit;
+    }
+
+    $fotoAnterior = $registroFotoAntiga["foto"] ?? null;
+
+    try {
+        $fotoNova = receberFotoPet();
+    } catch (RuntimeException $e) {
+        echo htmlspecialchars(
+            $e->getMessage(),
+            ENT_QUOTES,
+            "UTF-8"
+        );
+
+        echo '<br><a href="editar.php?id=' . urlencode((string) $id) . '">Voltar à edição</a>';
+        exit;
+}
 
     $sql = "UPDATE pets
             SET nome = ?,
                 nascimento = ?,
                 especie_id = ?,
                 prontuario = ?,
-                genero = ?
+                genero = ?,
+                foto = COALESCE(?, foto)
             WHERE id = ?";
 
     $stmt = mysqli_prepare($conn, $sql);
@@ -250,17 +293,22 @@ if (isset($_POST["alterar"])) {
 
     mysqli_stmt_bind_param(
         $stmt,
-        "ssissi",
+        "ssisssi",
         $nome,
         $nascimento,
         $especie_id,
         $prontuario,
         $genero,
+        $fotoNova,
         $id
     );
 
 
     if (mysqli_stmt_execute($stmt)) {
+
+        if ($fotoNova !== null && !empty($fotoAnterior) && $fotoAnterior !== $fotoNova) { 
+            apagarFotoPet($fotoAnterior);
+        }
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
 
@@ -275,6 +323,10 @@ if (isset($_POST["alterar"])) {
         }
 
     } else {
+
+        if ($fotoNova !== null) {
+            apagarFotoPet($fotoNova);
+        }
 
         $_SESSION["msg"] = "Houve um erro ao alterar o pet.";
         $_SESSION["class"] = "alert alert-danger";
